@@ -1,6 +1,7 @@
 let express = require('express');
 let mongoose = require('mongoose');
-let bodyParser = require('body-parser'); 
+let bodyParser = require('body-parser');
+let cors = require('cors');
 
 let app = express();
 
@@ -15,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/monitor', {useNewUrlParser: true})
                     .catch((err)=>{
                         console.log(err);
                     })
+app.use(cors());
 
 app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded({'extended':'false'}));
