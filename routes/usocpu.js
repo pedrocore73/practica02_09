@@ -23,13 +23,17 @@ setInterval(()=>{
 
 app.get('/cpulasthour', (req, res)=>{
     UsoCpu.find({}).sort({fecha: -1}).limit(3600).exec((err, data)=>{
+        let dataLastHour = [];
+        for(i=0; i < data.length; i += 300){
+            dataLastHour.push(data[i]);
+        }
         if (err) {
             res.status(400).json({
                 error: err
             })
         } else if (data) {
             res.status(200).json({
-                cpulasthour: data
+                cpulasthour: dataLastHour
             })
         }
     })
