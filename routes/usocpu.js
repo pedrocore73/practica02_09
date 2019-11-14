@@ -39,4 +39,18 @@ app.get('/cpulasthour', (req, res)=>{
     })
 })
 
+app.get('/cpulastminute', (req, res)=>{
+    UsoCpu.find({}).sort({fecha: -1}).limit(60).exec((err, data)=>{
+        if (err) {
+            return res.status(400).json({
+                error: err
+            })
+        } else if(data) {
+            res.status(200).json({
+                cpulastminute: data
+            })
+        }
+    })
+})
+
 module.exports = app;
